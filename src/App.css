@@ -1,38 +1,122 @@
-.App {
-  text-align: center;
+.Home {
+    padding: 10px;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.Room {
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.Map {
+    min-height: 100vh;
+    flex: 7 7 auto;
+    margin: 0px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.Sidebar {
+    position: relative;
+    min-height: 100vh;
+    flex: 3 3 auto;
+    min-width: 350px;
+    margin: 0px;
+    padding: 0px;
+    background-color: rgb(242, 242, 242);
+    box-shadow: 0px 0px 3px black;
 }
 
-.App-link {
-  color: #61dafb;
+.Sidebar .PlaceInfo {
+    position: absolute;
+    padding: 8px;
+    width: calc(100% - 16px);
+    height: max(30vh, 160px);
+    background-color: rgb(237, 211, 228);
+    color: rgb(242, 242, 242);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.Sidebar .PlaceInfo h1 {
+    position: relative;
+    z-index: 3;
+    margin: 8px;
+    text-shadow: 0px 0px 6px black;
+}
+
+.Sidebar .PlaceInfo p {
+    position: relative;
+    z-index: 3;
+    margin: 8px;
+    text-shadow: 1px 1px 8px black;
+}
+
+.Sidebar .PlaceInfo .Address {
+    margin: 8px;
+    position: absolute;
+    bottom: 5px;
+}
+
+.Sidebar .PlaceInfo .Button {
+    position: absolute;
+    height: 100%;
+    width: 30%;
+    top: 0px;
+}
+
+.Sidebar .PlaceInfo .Left {
+    left: 0px;
+}
+
+.Sidebar .PlaceInfo .Right {
+    right: 0px;
+}
+
+.Sidebar .PlaceInfo .CroppedImg {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    overflow: hidden;
+
+    width: 100%;
+    height: 100%;
+}
+
+.Sidebar .PlaceInfo .CroppedImg .Container {
+    min-width: 100%;
+    height: 100%;
+
+    position:absolute;
+    left:50%;
+    top:0px;
+    transform: translate(-50%,0);
+}
+
+.Sidebar .PlaceInfo .CroppedImg .Container img {
+    width: 100%;
+    height: auto;
+
+    position:absolute;
+    left:0;
+    top:50%;
+    transform: translate(0,-50%);
+}
+
+
+@media (max-width: 1000px) {
+    .Room {
+        flex-direction: column;
+    }
+
+    .Map {
+        width: 100vw;
+        min-height: 300px;
+    }
+
+    .Sidebar {
+        width: 100vw;
+        min-height: 230px;
+    }
+
+    .Sidebar .PlaceInfo {
+        width: max(40vw, 200px);
+        height: calc(100% - 16px);
+    }
 }
