@@ -11,9 +11,9 @@ function Review(props) {
     const room = props.room;
     const name = props.name;
     const placeId = props.placeId;
-    const entrySubmitter = useRef(null);
-    const [review, setReview] = useState(null);
+    const entrySubmitter = props.entrySubmitter;
 
+    const [review, setReview] = useState(null);
     const [rating, setRating] = useState(null);
     const reviewArea = useRef(null);
     const createdAt = useRef(null);
@@ -22,8 +22,11 @@ function Review(props) {
 
     useEffect(() => {
         if (!entries || entries.length === 0) {
-            entrySubmitter.current = null;
-        } else if (entrySubmitter.current === null) {
+            setReview(null);
+            return;
+        }
+
+        if (entrySubmitter.current === null) {
             entrySubmitter.current = entries[0].submitter;
         } else if (!entries.map(entry => entry.submitter).includes(entrySubmitter.current)) {
             entrySubmitter.current = entries[0].submitter;
@@ -165,10 +168,11 @@ function Entry(props) {
     const placeId = props.placeId;
     const entries = props.entries;
     const setUpdateEntries = props.setUpdateEntries;
+    const entrySubmitter = props.entrySubmitter;
 
     const [entryMode, setEntryMode] = useState("VIEW");
     const [placeEntries, setPlaceEntries] = useState([]);
-
+    
     useEffect(() => {
         if (entries === null) return;
         setPlaceEntries(entries.filter(entry => entry.placeId === placeId));
@@ -203,7 +207,13 @@ function Entry(props) {
             : <></>
         }
         {entryMode === "VIEW"
-            ? <Review entries={placeEntries} room={room} name={name} placeId={placeId} setEntryMode={setEntryMode}/>
+            ? <Review 
+                entries={placeEntries} 
+                entrySubmitter={entrySubmitter} 
+                room={room} 
+                name={name} 
+                placeId={placeId} 
+                setEntryMode={setEntryMode}/>
             : <></>
         }
     </div>);

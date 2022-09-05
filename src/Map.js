@@ -13,8 +13,7 @@ function Map(props) {
         id: "google-map-script",
         libraries: GOOGLE_API_LIBRARIES,
         googleMapsApiKey: GOOGLE_API_KEY
-    });
-    const setPlaceId = props.setPlaceId;
+    });    const setPlaceId = props.setPlaceId;
     const setMap = props.setMap;
 
     const onLoad = useCallback(map => {

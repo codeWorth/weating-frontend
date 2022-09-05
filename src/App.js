@@ -100,7 +100,11 @@ function Room(props) {
 
     return (
         <div className="Room">
-            <Map className="Map" placeId={placeId} setPlaceId={setPlaceId} setMap={setMap}/>
+            <Map 
+                className="Map" 
+                placeId={placeId} 
+                setPlaceId={setPlaceId} 
+                setMap={setMap}/>
             <Sidebar 
                 room={room}
                 name={name}
