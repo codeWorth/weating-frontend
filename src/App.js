@@ -5,16 +5,15 @@ import {
     useParams,
     useNavigate
 } from "react-router-dom";
-import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import "./App.css";
 import "./MainHeader.css";
 import { ApiService } from "./apiService";
 import Sidebar from "./Sidebar";
-
-const GOOGLE_API_KEY="AIzaSyB-LEbsoKOKJ44XPoLD1tZ5-sYfTcRcoh8";
-const GOOGLE_API_LIBRARIES = ["places"];
+import Map from "./Map";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faGear } from "@fortawesome/free-solid-svg-icons";
 
 function Home() {
     const navigate = useNavigate();
@@ -23,7 +22,7 @@ function Home() {
         const response = await ApiService.createRoom();
         if (!response.ok) return;
         const roomId = (await response.json()).roomId;
-        navigate("/" + roomId);
+        navigate("/room/" + roomId);
     }
 
     return (
@@ -32,44 +31,11 @@ function Home() {
         </div>
     )
 }
-  
-const center = {
-    lat: -3.746,
-    lng: -38.523
-};
 
-function Map(props) {
-    const { isLoaded } = useJsApiLoader({
-        id: "google-map-script",
-        libraries: GOOGLE_API_LIBRARIES,
-        googleMapsApiKey: GOOGLE_API_KEY
-    });
-
-    const onLoad = useCallback(map => {
-        const bounds = new window.google.maps.LatLngBounds(center);
-        map.fitBounds(bounds);
-        props.setMap(map);
-
-        map.addListener("click", async (event) => {
-            if (!event.placeId) return;
-            event.stop();
-            props.setPlaceId(event.placeId);
-        })
-    }, []);
-  
-    const onUnmount = useCallback(map => {
-        props.setMap(null)
-    }, []);
-
-    return isLoaded ? (
-        <GoogleMap
-            mapContainerClassName={props.className}
-            center={center}
-            zoom={10}
-            onLoad={onLoad}
-            onUnmount={onUnmount}>
-        </GoogleMap>
-    ) : <></>;
+function Settings() {
+    return (
+        <h1>Settings!</h1>
+    )
 }
 
 function Room() {
@@ -78,7 +44,6 @@ function Room() {
     const [map, setMap] = useState(null);
     const [updateEntries, setUpdateEntries] = useState(true);
     const [entries, setEntries] = useState(null);
-    const navigate = useNavigate();
 
     async function getEntriesForRoom(room) {
         const response = await ApiService.getEntriesForRoom(room);
@@ -90,43 +55,58 @@ function Room() {
             setUpdateEntries(false);
             getEntriesForRoom(room).then(data => setEntries(data));
         }
-    }, [room, updateEntries]);
+    }, [room, entries, updateEntries]);
+
+    return (
+        <div className="Room">
+            <Map className="Map" placeId={placeId} setPlaceId={setPlaceId} setMap={setMap}/>
+            <Sidebar 
+                className="Sidebar" 
+                room={room} 
+                placeId={placeId} 
+                setPlaceId={setPlaceId}
+                map={map} 
+                entries={entries} 
+                setUpdateEntries={setUpdateEntries}/>
+        </div>
+    )
+}
+
+function Page() {
+    const navigate = useNavigate();
 
     function goHome() {
         navigate("/");
+    }
+
+    function goSettings() {
+        navigate("/settings");
     }
 
     return (
         <div className="MainContainer">
             <div className="MainHeader">
                 <h1 onClick={goHome}>Weating</h1>
+                <FontAwesomeIcon icon={faGear} onClick={goSettings} />
             </div>
-            <div className="Room">
-                <Map className="Map" placeId={placeId} setPlaceId={setPlaceId} setMap={setMap}/>
-                <Sidebar 
-                    className="Sidebar" 
-                    room={room} 
-                    placeId={placeId} 
-                    setPlaceId={setPlaceId}
-                    map={map} 
-                    entries={entries} 
-                    setUpdateEntries={setUpdateEntries}/>
-            </div>
+        
+            <Routes>
+                <Route path="/" element={<Home/>} />
+                <Route path="/settings" element={<Settings/>} />
+                <Route path="/room/:room" element={<Room/>} />
+            </Routes>
         </div>
-    )
+    );
 }
 
 function App() {
     return (
-      <div className="App">
-          <Router>
-              <Routes>
-                  <Route path="/" element={<Home/>} />
-                  <Route path="/:room" element={<Room/>} />
-              </Routes>
-          </Router>
-      </div>
+        <div className="App">
+            <Router>
+                <Page />
+            </Router>
+        </div>
     );
-  }
+}
 
 export default App;

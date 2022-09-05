@@ -15,9 +15,21 @@
 }
 
 .MainHeader h1 {
+    font-size: 2rem;
     display: inline-block;
+    flex: 1;
 }
 
 .MainHeader h1:hover {
     cursor: pointer;
+    color: rgb(225, 225, 225);
+}
+
+.MainHeader svg {
+    font-size: 2rem;
+}
+
+.MainHeader svg:hover {
+    cursor: pointer;
+    color: rgb(225, 225, 225);
 }
