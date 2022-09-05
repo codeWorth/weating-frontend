@@ -82,7 +82,8 @@
 
 @media (max-aspect-ratio: 1.1) {
     .Entry {
-        width: max(35vw, 14.3rem);
+        flex-shrink: 0;
+        width: max(28vw, 14rem);
         height: calc(100% - 16px);
     }
 

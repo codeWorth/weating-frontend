@@ -75,7 +75,8 @@
 
 @media (max-aspect-ratio: 1.1) {
     .PlaceInfo {
-        width: max(35vw, 14rem);
+        flex-shrink: 0;
+        width: max(28vw, 13rem);
         height: calc(100% - 16px);
     }
 }

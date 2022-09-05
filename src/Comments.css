@@ -2,7 +2,6 @@
     margin: 0px 8px 8px 8px;
     padding: 8px 0px 0px 0px;
     width: calc(100% - 16px);
-    flex: 1;
     display: flex;
     flex-direction: column;
     color: rgb(31, 31, 31);
@@ -39,14 +38,9 @@
     font-size: 1.2rem;
 }
 
-.Comments .ScrollBox .AddComment svg {
+.Comments .ScrollBox .AddComment button {
     font-size: 1.3rem;
     margin: auto 4px;
-}
-
-.Comments .ScrollBox .AddComment svg:hover {
-    cursor: pointer;
-    color: rgb(0, 0, 0);
 }
 
 .Comments .ScrollBox .CommentsList {
@@ -127,6 +121,7 @@
         height: auto;
         min-height: 10rem;
         border: none;
+        float: none;
     }
 
     .Comments .ScrollBox {

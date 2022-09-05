@@ -327,7 +327,7 @@ function AddReview(props) {
         <textarea ref={reviewArea}></textarea>
         <div className="SubmitArea">
             <ReviewStars rating={rating} setRating={setRating} editable={true}/>
-            <button onClick={submit}>Submit</button>
+            <button onClick={submit}>Post</button>
         </div>
     </>);
 }
@@ -427,7 +427,7 @@ function Comments(props) {
         <h1>{comments.length} comments</h1>
         <div className="AddComment">
             <ResizeTextbox value={addCommentValue} setValue={setAddCommentValue} placeholder="Add a comment..."/>
-            <FontAwesomeIcon icon={faPlus} onClick={submitComment} />
+            <button onClick={submitComment}>Post</button>
         </div>
         <div className="CommentsList">
             {comments.map(comment => <div key={comment.id} className="Comment">
@@ -552,9 +552,12 @@ function Sidebar(props) {
                             : <></>
                         }
                     </div>
-                    <div className="Comments">
-                        <Comments room={room} name={name} placeId={placeId}/>
-                    </div>
+                    {entryMode === "VIEW" && placeEntries && placeEntries.length > 0 
+                        ? <div className="Comments">
+                            <Comments room={room} name={name} placeId={placeId}/>
+                        </div>
+                        : <></>
+                    }
                 </div> 
                 : <div className="Name">
                     {name.length > 0 
