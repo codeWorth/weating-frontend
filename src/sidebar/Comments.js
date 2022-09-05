@@ -3,8 +3,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useRef, useState } from "react";
 
 import "./Comments.css";
-import "./ResizeTextbox.css";
-import { ApiService } from "./apiService";
+import { ApiService } from "../apiService";
+import ResizeTextbox from "../util/ResizeTextbox";
 
 const TIMES = [
     ["second", 1000],
@@ -37,29 +37,6 @@ function datesDiffToString(then, now) {
         }
     }
     return "0 seconds";
-}
-
-function ResizeTextbox(props) {
-    const value = props.value;
-    const setValue = props.setValue;
-    const placeholder = props.placeholder || "";
-    const maxHeight = !!props.maxHeight;
-    const [sizingValue, setSizingValue] = useState("_");
-
-    function onChange(e) {
-        const value = e.target.value;
-        setValue(value);
-    }
-
-    useEffect(() => {
-        const lastChar = value.length > 0 ? value[value.length - 1] : "\n";
-        setSizingValue(value + (lastChar === "\n" ? "_" : ""));
-    }, [value]);
-
-    return (<div className="ResizeContainer">
-        <pre className={(maxHeight ? "MaxHeight" : "") + "Sizer"}>{sizingValue}</pre>
-        <textarea value={value} onChange={e => onChange(e)} placeholder={placeholder}></textarea> 
-    </div>);
 }
 
 function Comments(props) {

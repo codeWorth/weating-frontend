@@ -2,10 +2,10 @@ import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
 
-import { MapService } from "./apiService";
-import FitImage from "./FitImage";
+import { MapService } from "../apiService";
+import FitImage from "../util/FitImage";
 import "./PlaceInfo.css";
-import VALID_TYPES from "./validTypes";
+import VALID_TYPES from "../validTypes";
 
 function PlaceInfo(props) {
     const placeId = props.placeId;

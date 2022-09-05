@@ -10,7 +10,7 @@ import { useEffect, useState } from 'react';
 import "./App.css";
 import "./MainHeader.css";
 import { ApiService } from "./apiService";
-import Sidebar from "./Sidebar";
+import Sidebar from "./sidebar/Sidebar";
 import Map from "./Map";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGear } from "@fortawesome/free-solid-svg-icons";

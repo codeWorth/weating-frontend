@@ -3,8 +3,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useRef, useState } from "react";
 
 import "./Entry.css";
-import { ApiService } from "./apiService";
-import ReviewStars from "./ReviewStars";
+import { ApiService } from "../apiService";
+import ReviewStars from "../util/ReviewStars";
 
 function Review(props) {
     const entries = props.entries;
