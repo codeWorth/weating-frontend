@@ -11,14 +11,14 @@ function Review(props) {
     const room = props.room;
     const name = props.name;
     const placeId = props.placeId;
-    const entrySubmitter = props.entrySubmitter;
+    const givenEntrySubmitter = props.entrySubmitter;
 
     const [review, setReview] = useState(null);
     const [rating, setRating] = useState(null);
     const reviewArea = useRef(null);
     const createdAt = useRef(null);
-    const [editable, setEditable] = useState(false);
     const [editing, setEditing] = useState(false);
+    const entrySubmitter = useRef(null);
 
     useEffect(() => {
         if (!entries || entries.length === 0) {
@@ -32,12 +32,21 @@ function Review(props) {
             entrySubmitter.current = entries[0].submitter;
         }
 
+        if (givenEntrySubmitter.current !== null) {
+            const givenReivew = entries.find(entry => entry.submitter === givenEntrySubmitter.current);
+            if (givenReivew) {
+                setReview(givenReivew);
+                entrySubmitter.current = givenEntrySubmitter.current;
+                givenEntrySubmitter.current = null;
+                return;
+            }
+        }
+
         if (entrySubmitter.current !== null) {
             setReview(entries.find(entry => entry.submitter === entrySubmitter.current) || null);
         } else {
             setReview(null);
         }
-        setEditable(name === entrySubmitter.current);
     }, [entries, name]);
     
     useEffect(() => {
@@ -86,14 +95,13 @@ function Review(props) {
         const nextIndex = (currentIndex + 1) % entries.length;
         entrySubmitter.current = entries[nextIndex].submitter;
         setReview(entries[nextIndex]);
-        setEditable(name === entrySubmitter.current);
     }
 
     return (review 
         ? <>
             <div className="Header">
                 <h1>{review.submitter}:</h1>
-                {editable 
+                {name === entrySubmitter.current 
                     ? (editing 
                         ? <>
                             <FontAwesomeIcon icon={faCheck} onClick={saveEdit}/>
@@ -138,6 +146,7 @@ function AddReview(props) {
         }
         const response = await ApiService.addEntry(props.roomId, props.name, props.placeId, rating, reviewArea.current.value);
         if (response.ok) {
+            props.entrySubmitter.current = props.name;
             exit();
         }
     }
@@ -203,7 +212,12 @@ function Entry(props) {
             : <></>
         }
         {entryMode === "CREATE"
-            ? <AddReview roomId={room} name={name} placeId={placeId} setEntryMode={setEntryMode}/>
+            ? <AddReview 
+                roomId={room} 
+                name={name} 
+                placeId={placeId} 
+                setEntryMode={setEntryMode}
+                entrySubmitter={entrySubmitter}/>
             : <></>
         }
         {entryMode === "VIEW"
