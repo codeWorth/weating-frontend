@@ -1,3 +1,9 @@
+.MainContainer {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
 .Home {
     padding: 10px;
 }
@@ -5,11 +11,11 @@
 .Room {
     display: flex;
     flex-direction: row;
-    height: 100vh;
+    flex: 1;
 }
 
 .Map {
-    height: 100vh;
+    height: 100%;
     width: auto;
     flex: 7 7 auto;
     margin: 0px;
@@ -19,7 +25,7 @@
     position: relative;
     flex: 3 3 auto;
     width: auto;
-    height: 100vh;
+    height: 100%;
     overflow: scroll;
 
     margin: 0px;

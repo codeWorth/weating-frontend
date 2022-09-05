@@ -28,19 +28,22 @@
 .Comments .ScrollBox .AddComment {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-end;
     width: 100%;
 }
 
 .Comments .ScrollBox .AddComment > .ResizeContainer {
+    width: calc(100% - 16px);
     margin: 8px;
     margin-top: 0px;
-    flex: 1;
     font-size: 1.2rem;
 }
 
 .Comments .ScrollBox .AddComment button {
     font-size: 1.3rem;
-    margin: auto 4px;
+    margin: 8px;
+    margin-bottom: 0px;
 }
 
 .Comments .ScrollBox .CommentsList {
@@ -98,7 +101,7 @@
 }
 
 .Comments .ScrollBox .CommentsList .Comment div .Content {
-    padding: 4px 4px;
+    padding: 4px 5px;
     width: calc(100% - 8px);
     border-left: 1px solid rgb(210, 210, 210);
     white-space: pre-wrap;
