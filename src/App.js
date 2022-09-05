@@ -6,14 +6,16 @@ import {
     useNavigate
 } from "react-router-dom";
 import { useEffect, useState } from 'react';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCheck, faEdit, faGear, faTimes } from "@fortawesome/free-solid-svg-icons";
 
 import "./App.css";
 import "./MainHeader.css";
 import { ApiService } from "./apiService";
 import Sidebar from "./sidebar/Sidebar";
 import Map from "./Map";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faGear } from "@fortawesome/free-solid-svg-icons";
+
+const MAX_NAME_LEN = 24;
 
 function Home() {
     const navigate = useNavigate();
@@ -36,9 +38,41 @@ function Settings(props) {
     const name = props.name;
     const setName = props.setName;
 
-    return (
-        <h1>Settings {name}!</h1>
-    );
+    const [editing, setEditing] = useState(false);
+    const [inputName, setInputName] = useState(name);
+    const changeInputName = (e) => setInputName(e.target.value.slice(0, MAX_NAME_LEN));
+
+    function saveEdit() {
+        if (inputName.length > 0) {
+            setName(inputName);
+            setEditing(false);
+        }
+    }
+
+    function discardEdit() {
+        setInputName(name);
+        setEditing(false);
+    }
+
+    function editSettings() {
+        setEditing(true);
+    }
+
+    return (<div className="Settings">
+        <div className="Header">
+            <h1>Settings</h1>
+            {editing
+                ? <>
+                    <FontAwesomeIcon icon={faCheck} onClick={saveEdit}/>
+                    <FontAwesomeIcon icon={faTimes} onClick={discardEdit}/>
+                </>
+                : <>
+                    <FontAwesomeIcon icon={faEdit} onClick={editSettings}/>
+                </>
+            }
+        </div>
+        <textarea readOnly={!editing} value={inputName} onChange={changeInputName} placeholder="Enter your name..."></textarea>
+    </div>);
 }
 
 function Room(props) {
