@@ -116,10 +116,13 @@ function Comments(props) {
     return (<div className="ScrollBox">
         <div className="Divider"></div>
         <h1>{comments.length} comments</h1>
-        <div className="AddComment">
-            <ResizeTextbox value={addCommentValue} setValue={setAddCommentValue} placeholder="Add a comment..."/>
-            {addCommentValue.length > 0 ? <button onClick={submitComment}>Post</button> : <></>}
-        </div>
+        {name.length > 0 
+            ? <div className="AddComment">
+                <ResizeTextbox value={addCommentValue} setValue={setAddCommentValue} placeholder="Add a comment..."/>
+                {addCommentValue.length > 0 ? <button onClick={submitComment}>Post</button> : <></>}
+            </div>
+            : <></>
+        }
         <div className="CommentsList">
             {comments.map(comment => <div key={comment.id} className="Comment">
                 <div key={comment.id} className="Header">
