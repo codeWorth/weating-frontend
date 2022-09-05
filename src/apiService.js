@@ -61,7 +61,7 @@ class ApiService {
     }
 
     static getCommentsForPlace(roomId, placeId) {
-        return fetch(API_QUERY_PARAMS(API_CALL_URL(roomId, "entries"), {
+        return fetch(API_QUERY_PARAMS(API_CALL_URL(roomId, "comments"), {
             "placeId": placeId
         }), {
             headers: {
@@ -79,7 +79,7 @@ class ApiService {
             body: JSON.stringify({
                 placeId: placeId,
                 commenter: commenter,
-                comment: comment
+                content: comment
             })
         });
     }

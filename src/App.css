@@ -9,114 +9,84 @@
 }
 
 .Map {
-    min-height: 100vh;
+    height: 100vh;
+    width: auto;
     flex: 7 7 auto;
     margin: 0px;
 }
 
 .Sidebar {
     position: relative;
-    min-height: 100vh;
     flex: 3 3 auto;
-    min-width: 350px;
+    width: auto;
+    height: 100vh;
+    overflow: scroll;
+
     margin: 0px;
     padding: 0px;
     background-color: rgb(242, 242, 242);
     box-shadow: 0px 0px 3px black;
 }
 
-.Sidebar .PlaceInfo {
+.Sidebar > .Container {
+    position: absolute;
+    width: 100%;
+    height: max(100%, 36rem);
+
+    margin: 0px;
+    padding: 0px;
+
+    display: flex;
+    flex-direction: column;
+}
+
+
+.Sidebar .Name {
     position: absolute;
     padding: 8px;
     width: calc(100% - 16px);
-    height: max(30vh, 160px);
-    background-color: rgb(237, 211, 228);
-    color: rgb(242, 242, 242);
+    height: calc(100% - 16px);
 }
 
-.Sidebar .PlaceInfo h1 {
-    position: relative;
-    z-index: 3;
+.Sidebar .Name h1 {
     margin: 8px;
-    text-shadow: 0px 0px 6px black;
+    font-size: 2.7rem;
 }
 
-.Sidebar .PlaceInfo p {
-    position: relative;
-    z-index: 3;
+.Sidebar .Name button {
     margin: 8px;
-    text-shadow: 1px 1px 8px black;
+    font-size: 1.4rem;
 }
 
-.Sidebar .PlaceInfo .Address {
-    margin: 8px;
-    position: absolute;
-    bottom: 5px;
-}
-
-.Sidebar .PlaceInfo .Button {
-    position: absolute;
-    height: 100%;
-    width: 30%;
-    top: 0px;
-}
-
-.Sidebar .PlaceInfo .Left {
-    left: 0px;
-}
-
-.Sidebar .PlaceInfo .Right {
-    right: 0px;
-}
-
-.Sidebar .PlaceInfo .CroppedImg {
-    position: absolute;
-    left: 0px;
-    top: 0px;
-    overflow: hidden;
-
-    width: 100%;
-    height: 100%;
-}
-
-.Sidebar .PlaceInfo .CroppedImg .Container {
-    min-width: 100%;
-    height: 100%;
-
-    position:absolute;
-    left:50%;
-    top:0px;
-    transform: translate(-50%,0);
-}
-
-.Sidebar .PlaceInfo .CroppedImg .Container img {
-    width: 100%;
-    height: auto;
-
-    position:absolute;
-    left:0;
-    top:50%;
-    transform: translate(0,-50%);
-}
-
-
-@media (max-width: 1000px) {
+@media (max-aspect-ratio: 1.1) {
     .Room {
         flex-direction: column;
     }
 
     .Map {
         width: 100vw;
-        min-height: 300px;
+        height: auto;
     }
 
     .Sidebar {
         width: 100vw;
-        min-height: 230px;
+        height: auto;
+        min-height: 13rem;
     }
 
-    .Sidebar .PlaceInfo {
-        width: max(40vw, 200px);
-        height: calc(100% - 16px);
+    .Sidebar .Container {
+        flex-direction: row;
+        width: 100%;
+        height: 100%;
+    }
+}
+
+@media (max-width: 40rem) {
+    .Sidebar {
+        flex: 4 4 auto;
+    }
+
+    .Sidebar .Container{
+        display: block;
     }
 }

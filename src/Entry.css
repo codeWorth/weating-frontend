@@ -1,0 +1,100 @@
+.Entry {
+    padding: 8px;
+    width: calc(100% - 16px);
+    height: max(35vh, 13rem);
+    display: flex;
+    flex-direction: column;
+    color: rgb(31, 31, 31);
+}
+
+.Entry .AddReview {
+    width: 8rem;
+}
+
+.Entry button {
+    margin: 8px;
+    font-size: 1rem;
+}
+
+.Entry h1 {
+    margin: 8px;
+    font-size: 1.6rem;
+}
+
+.Entry textarea {
+    display: block;
+    margin: 8px;
+    padding: 8px;
+    resize: none;
+    font-size: 1rem;
+    width: calc(100% - 36px);
+    flex: 1;
+    margin-top: 0px;
+}
+
+.Entry .SubmitArea {
+    display: flex;
+    flex-direction: row;
+}
+
+.Entry .SubmitArea > div {
+    flex: 1;
+}
+
+.Entry .SubmitArea button {
+    font-size: 1.2rem;
+    margin-top: 4px;
+}
+
+.Entry .SubmitArea .Rating {
+    font-size: 2rem;
+}
+
+.Entry .Rating {
+    margin-top: 0px;
+    margin-bottom: 10px;
+    font-size: 1.4rem;
+}
+
+.Entry .Header {
+    display: flex;
+    flex-direction: row;
+    margin: 8px;
+    margin-bottom: 4px;
+}
+
+.Entry .Header h1 {
+    margin: 0px;
+    display: inline-block;
+    flex: 1;
+    font-size: 1.6rem;
+}
+
+.Entry .Header svg {
+    font-size: 1.3rem;
+    margin: auto 4px;
+}
+
+.Entry .Header svg:hover {
+    cursor: pointer;
+    color: rgb(0, 0, 0);
+}
+
+@media (max-aspect-ratio: 1.1) {
+    .Entry {
+        width: max(35vw, 14.3rem);
+        height: calc(100% - 16px);
+    }
+
+    .Entry .SubmitArea button {
+        float: right;
+        margin-top: 0px;
+    }
+}
+
+@media (max-width: 40rem) {
+    .Entry {
+        width: calc(50vw - 16px);
+        float: left;
+    }
+}

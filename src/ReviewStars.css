@@ -1,0 +1,16 @@
+.Rating {
+    position: relative;
+    margin: 8px;
+    padding: 0px;
+    width: fit-content;
+    white-space: nowrap;
+}
+
+.Rating .Cover {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    overflow: hidden;
+    width: 50%;
+    white-space: nowrap;
+}
