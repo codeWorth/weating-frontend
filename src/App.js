@@ -32,14 +32,18 @@ function Home() {
     )
 }
 
-function Settings() {
+function Settings(props) {
+    const name = props.name;
+    const setName = props.setName;
+
     return (
-        <h1>Settings!</h1>
-    )
+        <h1>Settings {name}!</h1>
+    );
 }
 
-function Room() {
+function Room(props) {
     let { room } = useParams();
+    const name = props.name;
     const [placeId, setPlaceId] = useState(null);
     const [map, setMap] = useState(null);
     const [updateEntries, setUpdateEntries] = useState(true);
@@ -48,12 +52,15 @@ function Room() {
     async function getEntriesForRoom(room) {
         const response = await ApiService.getEntriesForRoom(room);
         if (!response.ok) return;
-        return await response.json();
+
+        const entries = await response.json();
+        entries.sort((a, b) => b.createdAt - a.createdAt);
+        setEntries(entries);
     }
     useEffect(() => {
         if (entries === null || updateEntries) {
             setUpdateEntries(false);
-            getEntriesForRoom(room).then(data => setEntries(data));
+            getEntriesForRoom(room);
         }
     }, [room, entries, updateEntries]);
 
@@ -61,8 +68,8 @@ function Room() {
         <div className="Room">
             <Map className="Map" placeId={placeId} setPlaceId={setPlaceId} setMap={setMap}/>
             <Sidebar 
-                className="Sidebar" 
-                room={room} 
+                room={room}
+                name={name}
                 placeId={placeId} 
                 setPlaceId={setPlaceId}
                 map={map} 
@@ -74,6 +81,7 @@ function Room() {
 
 function Page() {
     const navigate = useNavigate();
+    const [name, setName] = useState("");
 
     function goHome() {
         navigate("/");
@@ -91,9 +99,9 @@ function Page() {
             </div>
         
             <Routes>
-                <Route path="/" element={<Home/>} />
-                <Route path="/settings" element={<Settings/>} />
-                <Route path="/room/:room" element={<Room/>} />
+                <Route path="/" element={<Home />} />
+                <Route path="/settings" element={<Settings name={name} setName={setName} />} />
+                <Route path="/room/:room" element={<Room name={name} />} />
             </Routes>
         </div>
     );

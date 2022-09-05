@@ -35,7 +35,7 @@ function Review(props) {
             setReview(null);
         }
         setEditable(name === entrySubmitter.current);
-    }, [entries]);
+    }, [entries, name]);
     
     useEffect(() => {
         if (review === null) return;
@@ -69,7 +69,7 @@ function Review(props) {
     }
 
     function canAddReview() {
-        return entries.find(entry => entry.submitter === name) === undefined;
+        return name.length > 0 && entries.find(entry => entry.submitter === name) === undefined;
     }
 
     function createReview() {
@@ -164,6 +164,7 @@ function Entry(props) {
     const name = props.name;
     const placeId = props.placeId;
     const entries = props.entries;
+    const setUpdateEntries = props.setUpdateEntries;
 
     const [entryMode, setEntryMode] = useState("VIEW");
     const [placeEntries, setPlaceEntries] = useState([]);
@@ -180,7 +181,7 @@ function Entry(props) {
 
     useEffect(() => {
         if (entryMode === "REFRESH") {
-            props.setUpdateEntries(true);
+            setUpdateEntries(true);
             setEntryMode("VIEW");
         }
     }, [entryMode]);
@@ -193,7 +194,7 @@ function Entry(props) {
         {entryMode === "VIEW" && (!placeEntries || placeEntries.length === 0)
             ? <>
                 <h1>There aren't any reviews yet.</h1>
-                <button className="AddReview" onClick={createReview}>Add a review</button>
+                {name.length > 0 ? <button className="AddReview" onClick={createReview}>Add a review</button> : <></>}
             </>
             : <></>
         }
