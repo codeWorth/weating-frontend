@@ -1,0 +1,1 @@
+scp -i ../WeatingServerKey.pem build.tar.gz ubuntu@52.9.248.195:/home/ubuntu/front-end

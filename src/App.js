@@ -71,7 +71,12 @@ function Settings(props) {
                 </>
             }
         </div>
-        <textarea readOnly={!editing} value={inputName} onChange={changeInputName} placeholder="Enter your name..."></textarea>
+        <textarea 
+            readOnly={!editing} 
+            value={inputName} 
+            onChange={changeInputName} 
+            placeholder={editing ? "Enter your name..." : "Name"}
+        ></textarea>
     </div>);
 }
 
