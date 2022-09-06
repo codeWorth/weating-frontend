@@ -17,6 +17,17 @@ import Map from "./Map";
 
 const MAX_NAME_LEN = 24;
 
+const setCookie = (name, value, path = '/') => {
+    document.cookie = name + '=' + encodeURIComponent(value) + '; path=' + path;
+}
+  
+const getCookie = (name) => {
+    return document.cookie.split('; ').reduce((r, v) => {
+        const parts = v.split('=');
+        return parts[0] === name ? decodeURIComponent(parts[1]) : r;
+    }, '');
+}
+
 function Home() {
     const navigate = useNavigate();
 
@@ -133,6 +144,15 @@ function Page() {
     function goSettings() {
         navigate("/settings");
     }
+
+    useEffect(() => {
+        if (name.length > 0) setCookie("user-name", name);
+    }, [name]);
+
+    useEffect(() => {
+        const cookie = getCookie("user-name");
+        if (cookie && cookie.length > 0) setName(cookie);
+    })
 
     return (
         <div className="MainContainer">
