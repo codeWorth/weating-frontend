@@ -11,6 +11,7 @@ function PlaceInfo(props) {
     const placeId = props.placeId;
     const setPlaceId = props.setPlaceId;
     const map = props.map;
+    const setGoTo = props.setGoTo;
 
     const [placeData, setPlaceData] = useState(null);
     const [placePhotoIndex, setPlacePhotoIndex] = useState(0);
@@ -26,7 +27,8 @@ function PlaceInfo(props) {
             return;
         }
 
-        const place = await MapService.getPlaceInfo(placeId, map);        
+        const place = await MapService.getPlaceInfo(placeId, map);
+        setGoTo(place.geometry);      
         place.types = place.types
             .filter(type => type in VALID_TYPES)
             .map(type => VALID_TYPES[type])

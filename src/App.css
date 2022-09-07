@@ -69,35 +69,77 @@
 .Settings {
     color: rgb(31, 31, 31);
     margin: 0px;
-    padding: 8px;
+    padding: 0px;
+
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    z-index: 100;
+    background-color: rgba(0, 0, 0, 0.3);
 }
 
-.Settings textarea {
+.Settings .SettingsArea {
+    background-color: rgb(242, 242, 242);
+    margin: 40px;
+    padding: 16px;
+    width: calc(100% - 112px);
+    height: calc(100% - 112px);
+    border-radius: 12px;
+}
+
+.Settings .SettingsArea textarea {
     resize: none;
     margin: 8px;
     font-size: 1.8rem;
     height: 2.4rem;
-    width: 26rem;
+    width: min(calc(100% - 32px), 26rem);
     padding: 4px 6px;
 }
 
-.Settings .Header {
-    max-width: 35rem;
+.Settings .SettingsArea .Header {
     display: flex;
     flex-direction: row;
     margin: 8px;
 }
 
-.Settings .Header h1 {
+.Settings .SettingsArea .Header h1 {
     margin: 0px;
     font-size: 2.8rem;
     display: inline-block;
     flex: 1;
 }
 
-.Settings .Header svg {
+.Settings .SettingsArea .Header svg {
     font-size: 2.8rem;
     margin: auto 8px;
+    color: rgb(31, 31, 31);
+}
+
+.Settings .SettingsArea .Header svg:hover {
+    cursor: pointer;
+    color: rgb(0, 0, 0);
+}
+
+.controls {
+    background-color: #fff;
+    border-radius: 2px;
+    border: 1px solid transparent;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    box-sizing: border-box;
+    font-family: Roboto;
+    font-size: 15px;
+    font-weight: 300;
+    height: 29px;
+    margin-left: 10px;
+    margin-top: -15px;
+    outline: none;
+    padding: 0 11px 0 13px;
+    text-overflow: ellipsis;
+    width: 400px;
+}
+  
+.controls:focus {
+    border-color: #4d90fe;
 }
 
 @media (max-aspect-ratio: 1.1) {

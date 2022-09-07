@@ -12,6 +12,7 @@ function Sidebar(props) {
     const entries = props.entries;
     const placeId = props.placeId;
     const setPlaceId = props.setPlaceId;
+    const setGoTo = props.setGoTo;
     const setUpdateEntries = props.setUpdateEntries;
 
     const [showComments, setShowComments] = useState(false);
@@ -27,7 +28,7 @@ function Sidebar(props) {
                         entries={entries}
                         entrySubmitter={entrySubmitter}/>
                     : <>
-                        <PlaceInfo placeId={placeId} setPlaceId={setPlaceId} map={map} />
+                        <PlaceInfo placeId={placeId} setPlaceId={setPlaceId} map={map} setGoTo={setGoTo} />
                         <Entry 
                             room={room} 
                             name={name} 

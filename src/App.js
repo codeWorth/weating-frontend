@@ -7,7 +7,7 @@ import {
 } from "react-router-dom";
 import { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheck, faEdit, faGear, faTimes } from "@fortawesome/free-solid-svg-icons";
+import { faCheck, faGear, faTimes } from "@fortawesome/free-solid-svg-icons";
 
 import "./App.css";
 import "./MainHeader.css";
@@ -48,47 +48,38 @@ function Home() {
 function Settings(props) {
     const name = props.name;
     const setName = props.setName;
+    const open = props.open;
+    const setOpen = props.setOpen;
 
-    const [editing, setEditing] = useState(false);
     const [inputName, setInputName] = useState(name);
     const changeInputName = (e) => setInputName(e.target.value.slice(0, MAX_NAME_LEN));
 
     function saveEdit() {
         if (inputName.length > 0) {
             setName(inputName);
-            setEditing(false);
+            setOpen(false);
         }
     }
 
     function discardEdit() {
         setInputName(name);
-        setEditing(false);
+        setOpen(false);
     }
 
-    function editSettings() {
-        setEditing(true);
-    }
-
-    return (<div className="Settings">
-        <div className="Header">
-            <h1>Settings</h1>
-            {editing
-                ? <>
-                    <FontAwesomeIcon icon={faCheck} onClick={saveEdit}/>
-                    <FontAwesomeIcon icon={faTimes} onClick={discardEdit}/>
-                </>
-                : <>
-                    <FontAwesomeIcon icon={faEdit} onClick={editSettings}/>
-                </>
-            }
+    return (open ? <div className="Settings">
+        <div className="SettingsArea">
+            <div className="Header">
+                <h1>Settings</h1>
+                <FontAwesomeIcon icon={faCheck} onClick={saveEdit}/>
+                <FontAwesomeIcon icon={faTimes} onClick={discardEdit}/>
+            </div>
+            <textarea 
+                value={inputName} 
+                onChange={changeInputName} 
+                placeholder="Enter your name..."
+            ></textarea>
         </div>
-        <textarea 
-            readOnly={!editing} 
-            value={inputName} 
-            onChange={changeInputName} 
-            placeholder={editing ? "Enter your name..." : "Name"}
-        ></textarea>
-    </div>);
+    </div>: <></>);
 }
 
 function Room(props) {
@@ -98,6 +89,7 @@ function Room(props) {
     const [map, setMap] = useState(null);
     const [updateEntries, setUpdateEntries] = useState(true);
     const [entries, setEntries] = useState(null);
+    const [goTo, setGoTo] = useState(null);
 
     async function getEntriesForRoom(room) {
         const response = await ApiService.getEntriesForRoom(room);
@@ -116,18 +108,22 @@ function Room(props) {
 
     return (
         <div className="Room">
-            <Map 
+            <Map
                 className="Map" 
                 placeId={placeId} 
                 setPlaceId={setPlaceId} 
-                setMap={setMap}/>
+                map={map}
+                setMap={setMap}
+                goTo={goTo}
+                setGoTo={setGoTo}/>
             <Sidebar 
                 room={room}
                 name={name}
                 placeId={placeId} 
                 setPlaceId={setPlaceId}
                 map={map} 
-                entries={entries} 
+                entries={entries}
+                setGoTo={setGoTo}
                 setUpdateEntries={setUpdateEntries}/>
         </div>
     )
@@ -136,13 +132,14 @@ function Room(props) {
 function Page() {
     const navigate = useNavigate();
     const [name, setName] = useState("");
+    const [settingsOpen, setSettingsOpen] = useState(false);
 
     function goHome() {
         navigate("/");
     }
 
     function goSettings() {
-        navigate("/settings");
+        setSettingsOpen(true);
     }
 
     useEffect(() => {
@@ -152,7 +149,7 @@ function Page() {
     useEffect(() => {
         const cookie = getCookie("user-name");
         if (cookie && cookie.length > 0) setName(cookie);
-    })
+    }, [])
 
     return (
         <div className="MainContainer">
@@ -160,10 +157,10 @@ function Page() {
                 <h1 onClick={goHome}>Weating</h1>
                 <FontAwesomeIcon icon={faGear} onClick={goSettings} />
             </div>
+            <Settings name={name} setName={setName} open={settingsOpen} setOpen={setSettingsOpen} />
         
             <Routes>
                 <Route path="/" element={<Home />} />
-                <Route path="/settings" element={<Settings name={name} setName={setName} />} />
                 <Route path="/room/:room" element={<Room name={name} />} />
             </Routes>
         </div>
