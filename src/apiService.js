@@ -105,6 +105,14 @@ class ApiService {
             method: "DELETE" 
         });
     }
+
+    static getPlaces(roomId) {
+        return fetch(API_CALL_URL(roomId, "places"), {
+            headers: {
+                "Accept": "application/json"
+            }
+        });
+    }
 }
 
 class MapService {

@@ -110,6 +110,7 @@ function Room(props) {
         <div className="Room">
             <Map
                 className="Map" 
+                room={room}
                 placeId={placeId} 
                 setPlaceId={setPlaceId} 
                 map={map}
