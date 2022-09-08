@@ -1,5 +1,5 @@
-const API_BASE_URL = "http://localhost:8080/api/";
-// const API_BASE_URL = "http://52.9.248.195/api/";
+// const API_BASE_URL = "http://localhost:8080/api/";
+const API_BASE_URL = "http://52.9.248.195/api/";
 const API_CALL_URL = (...path) => API_BASE_URL + path.join("/");
 const API_QUERY_PARAMS = (url, params) => url + "?" + new URLSearchParams(params);
 

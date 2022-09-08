@@ -65,7 +65,7 @@
     padding-left: 4px;
 }
 
-@media (max-aspect-ratio: 1.1) {
+@media (max-width: 990px) {
     .Recents {
         width: auto;
         min-height: calc(100% - 8px);

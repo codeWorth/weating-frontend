@@ -142,7 +142,7 @@
     border-color: #4d90fe;
 }
 
-@media (max-aspect-ratio: 1.1) {
+@media (max-width: 990px) {
     .Room {
         flex-direction: column;
     }

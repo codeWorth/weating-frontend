@@ -71,7 +71,7 @@
     height: 100%;
 }
 
-@media (max-aspect-ratio: 1.1) {
+@media (max-width: 990px) {
     .PlaceInfo {
         flex-shrink: 0;
         width: max(28vw, 13rem);
