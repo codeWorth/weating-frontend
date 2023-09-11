@@ -1,1 +1,1 @@
-scp -i ../WeatingServerKey.pem build.tar.gz ubuntu@52.9.248.195:/home/ubuntu/front-end
+scp -i "/Users/acummings/Desktop/text docs/WeatingKey.pem" build.tar.gz ubuntu@ec2-13-57-194-33.us-west-1.compute.amazonaws.com:/home/ubuntu/front-end
